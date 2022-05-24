@@ -18,12 +18,8 @@ public class User {
     @Column(name = "name")
     private String name;
 
-//    @ManyToMany
-//    @JsonIgnoreProperties({"folders"})
-//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-//    @JoinTable(
-//            name = ""
-//    )
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
     private List<Folder> folders;
 
     public User(String name) {
