@@ -1,5 +1,8 @@
 package com.codeClan.example.files_folder_hw.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,12 @@ public class User {
     @Column(name = "name")
     private String name;
 
+//    @ManyToMany
+//    @JsonIgnoreProperties({"folders"})
+//    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+//    @JoinTable(
+//            name = ""
+//    )
     private List<Folder> folders;
 
     public User(String name) {
