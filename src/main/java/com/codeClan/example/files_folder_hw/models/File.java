@@ -20,12 +20,11 @@ public class File {
 
     private Folder folder;
 
-    public File(String name, String extension, int size, Folder folder, Long id) {
+    public File(String name, String extension, int size, Folder folder) {
         this.name = name;
         this.extension = extension;
         this.size = size;
         this.folder = folder;
-        this.id = id;
     }
 
     public File() {
