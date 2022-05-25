@@ -1,13 +1,11 @@
 package com.codeClan.example.files_folder_hw.controller;
 
-import com.codeClan.example.files_folder_hw.models.File;
 import com.codeClan.example.files_folder_hw.models.Folder;
-import com.codeClan.example.files_folder_hw.repository.FileRepository;
 import com.codeClan.example.files_folder_hw.repository.FolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +16,17 @@ public class FolderController {
     FolderRepository folderRepository;
 
     @GetMapping(value = "/folders")
-    public List<Folder> getAllEmployees(){
-        return folderRepository.findAll();
+    public ResponseEntity<List<Folder>> getAllFolders() {
+        return new ResponseEntity<>(folderRepository.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/folders/{id}")
-    public Optional<Folder> getEmployee(@PathVariable Long id){
-        return folderRepository.findById(id);
+    public ResponseEntity getFolder(@PathVariable Long id) {
+        return new ResponseEntity<>(folderRepository.findById(id), HttpStatus.OK);
     }
-
+    @PostMapping(value = "/folders")
+    public ResponseEntity<Folder> postFolder(@RequestBody Folder folder){
+        folderRepository.save(folder);
+        return new ResponseEntity<>(folder, HttpStatus.CREATED);
+    }
 }

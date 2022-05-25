@@ -1,13 +1,11 @@
 package com.codeClan.example.files_folder_hw.controller;
 
-import com.codeClan.example.files_folder_hw.models.File;
 import com.codeClan.example.files_folder_hw.models.User;
-import com.codeClan.example.files_folder_hw.repository.FileRepository;
 import com.codeClan.example.files_folder_hw.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +16,17 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping(value = "/users")
-    public List<User> getAllEmployees(){
-        return userRepository.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/users/{id}")
-    public Optional<User> getEmployee(@PathVariable Long id){
-        return userRepository.findById(id);
+    public ResponseEntity getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
     }
-
+    @PostMapping(value = "/users")
+    public ResponseEntity<User> postUser(@RequestBody User user){
+        userRepository.save(user);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
 }

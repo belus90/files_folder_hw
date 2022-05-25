@@ -1,5 +1,6 @@
 package com.codeClan.example.files_folder_hw.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class File {
     @Column(name = "size")
     private int size;
 
+//    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "folder_id", nullable = false)
     @JsonIgnoreProperties({"files"})

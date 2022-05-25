@@ -7,9 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Files;
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
 @RestController
 public class FileController {
@@ -18,13 +17,18 @@ public class FileController {
     FileRepository fileRepository;
 
     @GetMapping(value = "/files")
-    public List<File> getAllEmployees(){
-        return fileRepository.findAll();
+    public ResponseEntity<List<File>>getAllFiles() {
+        return new ResponseEntity<>(fileRepository.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/files/{id}")
-    public Optional<File> getEmployee(@PathVariable Long id){
-        return fileRepository.findById(id);
+    public ResponseEntity getFile(@PathVariable Long id) {
+        return new ResponseEntity<>(fileRepository.findById(id), HttpStatus.OK);
+    }
+    @PostMapping(value = "/files")
+    public ResponseEntity<File> postFile(@RequestBody File file){
+        fileRepository.save(file);
+        return new ResponseEntity<>(file, HttpStatus.CREATED);
     }
 
 }

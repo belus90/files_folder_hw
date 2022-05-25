@@ -1,5 +1,6 @@
 package com.codeClan.example.files_folder_hw.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
@@ -18,13 +19,14 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties({"user"})
+//    @JsonIgnoreProperties({"user"})
     private List<Folder> folders;
 
     public User(String name) {
         this.name = name;
-        this.folders = new ArrayList<>();
+        this.folders = new ArrayList<Folder>();
     }
 
     public User() {
